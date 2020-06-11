@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -28,8 +30,7 @@ public class LoanController {
 
 
     @GetMapping("/loans/{user}")
-    public String ListLoans(@PathVariable int user, Model model) {
-
+    public String ListLoans(@PathVariable int user, Model model, HttpServletRequest request) {
         List<LoanBean> loans = loanClient.listLoans(user);
         LinkedHashMap<LoanBean, BookBean> map = new LinkedHashMap<>();
 

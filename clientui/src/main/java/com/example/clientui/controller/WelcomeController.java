@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -32,15 +33,23 @@ public class WelcomeController {
 
 
     @PostMapping("/login")
-    public String login(@RequestParam(name = "email") String email, @RequestParam(name = "password") String password) {
+    public String login(@RequestParam(name = "email") String email, @RequestParam(name = "password") String password, Model model, HttpServletRequest request) {
         String result = userClient.login(email, password);
         if (result.equals("success")){
-            // session.setAttribute("user", userClient.findUserByEmail(email));
+            HttpSession session = request.getSession();
+            session.setAttribute("user", userClient.findUserByEmail(email));
+            model.addAttribute("user", request.getSession().getAttribute("user"));
             return "test";
     }
         else{
             return "login";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request){
+        request.getSession().removeAttribute("user");
+        return "login";
     }
 
 }
