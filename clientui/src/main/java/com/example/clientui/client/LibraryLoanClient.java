@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @FeignClient(name = "zuul-server")
-@RibbonClient(name = "library-loan")
+//@RibbonClient(name = "library-loan")
 public interface LibraryLoanClient {
 
     @GetMapping(value="library-loan/loan/{id}")

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "zuul-server")
-@RibbonClient(name = "library-user")
+//@RibbonClient(name = "library-user")
 public interface LibraryUserClient {
 
     @GetMapping(value = "/library-user/user/{id}")

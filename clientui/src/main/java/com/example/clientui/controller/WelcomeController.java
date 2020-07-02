@@ -28,10 +28,15 @@ public class WelcomeController {
 
     @GetMapping("/")
     public String accueil() {
-        return "login";
+        return "Accueil";
     }
 
+    @GetMapping("/index")
+    public String index() {
+        return "test";
+    }
 
+/*
     @PostMapping("/login")
     public String login(@RequestParam(name = "email") String email, @RequestParam(name = "password") String password, Model model, HttpServletRequest request) {
         String result = userClient.login(email, password);
@@ -44,11 +49,10 @@ public class WelcomeController {
         else{
             return "login";
         }
-    }
+    }*/
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request){
-        request.getSession().removeAttribute("user");
         return "login";
     }
 

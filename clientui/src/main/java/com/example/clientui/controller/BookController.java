@@ -26,7 +26,7 @@ public class BookController {
     @Autowired
     private LibraryLoanClient loanClient;
 
-    @RequestMapping("/books")
+    @GetMapping("/books")
     public String ListBooks(Model model) {
         List<BookBean> books = bookClient.listBooks();
         model.addAttribute("books", books);
@@ -34,7 +34,7 @@ public class BookController {
         return "SearchBooks";
     }
 
-    @RequestMapping("/books/{id}")
+    @GetMapping("/books/{id}")
     public String selectBook(@PathVariable int id, Model model) {
         BookBean book = bookClient.displayBook(id);
         model.addAttribute("book", book);
@@ -53,7 +53,7 @@ public class BookController {
         return "Book";
     }
 
-    @GetMapping("/search")
+    @GetMapping("/books/search")
     public String searchBooks(@RequestParam(name = "word", defaultValue = "") String word, Model model){
         List<BookBean> books = bookClient.getBooks(word);
         model.addAttribute("books", books);
