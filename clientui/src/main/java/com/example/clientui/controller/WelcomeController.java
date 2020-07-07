@@ -26,32 +26,13 @@ public class WelcomeController {
     @Autowired
     private LibraryAccountClient userClient;
 
-
     @GetMapping("/")
     public String accueil(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = (String) authentication.getPrincipal();
-        System.out.println("username : " + username);
         model.addAttribute("username", username);
 
         return "test";
     }
 
-
-
-
-
-
-/*
-
-   @GetMapping("/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response){
-       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-       if (auth != null){
-           new SecurityContextLogoutHandler().logout(request, response, auth);
-       }
-       return "redirect:/";
-
-    }
-*/
 }
