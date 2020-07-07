@@ -1,59 +1,52 @@
 package com.example.clientui.controller;
 
-import com.example.clientui.beans.BookBean;
-import com.example.clientui.beans.UserBean;
-import com.example.clientui.client.LibraryLoanClient;
-import com.example.clientui.client.LibraryUserClient;
-import org.apache.catalina.Session;
-import org.apache.catalina.User;
+import com.example.clientui.beans.AccountBean;
+import com.example.clientui.client.LibraryAccountClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 
 @Controller
 public class WelcomeController {
 
     @Autowired
-    private LibraryUserClient userClient;
+    private LibraryAccountClient userClient;
 
 
     @GetMapping("/")
-    public String accueil() {
-        return "Accueil";
-    }
+    public String accueil(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = (String) authentication.getPrincipal();
+        System.out.println(username);
+        model.addAttribute("username", username);
 
-    @GetMapping("/index")
-    public String index() {
         return "test";
     }
 
+
+
 /*
-    @PostMapping("/login")
-    public String login(@RequestParam(name = "email") String email, @RequestParam(name = "password") String password, Model model, HttpServletRequest request) {
-        String result = userClient.login(email, password);
-        if (result.equals("success")){
-            HttpSession session = request.getSession();
-            session.setAttribute("user", userClient.findUserByEmail(email));
-            model.addAttribute("user", request.getSession().getAttribute("user"));
-            return "test";
-    }
-        else{
-            return "login";
-        }
-    }*/
 
-    @GetMapping("/logout")
-    public String logout(HttpServletRequest request){
-        return "login";
-    }
+   @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+       if (auth != null){
+           new SecurityContextLogoutHandler().logout(request, response, auth);
+       }
+       return "redirect:/";
 
+    }
+*/
 }

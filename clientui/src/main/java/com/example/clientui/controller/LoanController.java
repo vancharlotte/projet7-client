@@ -1,8 +1,10 @@
 package com.example.clientui.controller;
 
+import com.example.clientui.beans.AccountBean;
 import com.example.clientui.beans.BookBean;
 import com.example.clientui.beans.CopyBean;
 import com.example.clientui.beans.LoanBean;
+import com.example.clientui.client.LibraryAccountClient;
 import com.example.clientui.client.LibraryBookClient;
 import com.example.clientui.client.LibraryLoanClient;
 import org.slf4j.Logger;
@@ -28,10 +30,15 @@ public class LoanController {
     @Autowired
     private LibraryBookClient bookClient;
 
+    @Autowired
+    private LibraryAccountClient accountClientClient;
 
-    @GetMapping("/loans/{user}")
-    public String ListLoans(@PathVariable int user, Model model, HttpServletRequest request) {
-        List<LoanBean> loans = loanClient.listLoans(user);
+
+    @GetMapping("/loans/{username}")
+    public String ListLoans(@PathVariable String username, Model model) {
+        AccountBean user = accountClientClient.findUsername(username);
+
+        List<LoanBean> loans = loanClient.listLoans(user.getId());
         LinkedHashMap<LoanBean, BookBean> map = new LinkedHashMap<>();
 
         for (int i = 0; i < loans.size(); i++) {

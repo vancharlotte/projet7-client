@@ -13,27 +13,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @FeignClient(name = "library-book", url = "http://localhost:9001/")
-
-//@FeignClient(name = "zuul-server")
 //@RibbonClient(name = "library-book")
 public interface LibraryBookClient {
 
     @GetMapping(value = "/books")
     List<BookBean> listBooks();
 
-    @GetMapping(value = "/library-book/books/{id}")
+    @GetMapping(value = "/books/{id}")
     BookBean displayBook(@PathVariable int id);
 
-    @GetMapping(value = "/library-book/copies/{book}")
+    @GetMapping(value = "/copies/{book}")
     List<CopyBean> listCopies(@PathVariable int book);
 
-    @GetMapping(value = "/library-book/copy/{id}")
+    @GetMapping(value = "/copy/{id}")
     CopyBean selectCopy(@PathVariable int id);
 
    /* @GetMapping(value="/library-book/books/search/{word}")
     List<BookBean> searchBooks(@PathVariable("word") String word);*/
 
-    @GetMapping(value = "/library-book/books/search")
+    @GetMapping(value = "/books/search")
     List<BookBean> getBooks(@RequestParam(value = "title", required = false, defaultValue = "") String title);
 
 }
