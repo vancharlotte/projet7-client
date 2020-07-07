@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class FeignInterceptor implements RequestInterceptor {
 
-    private static final String AUTHORIZATION_HEADER="Authorization";
+    private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String TOKEN_TYPE = "Bearer";
 
     @Override
@@ -25,4 +25,6 @@ public class FeignInterceptor implements RequestInterceptor {
         System.out.println(authentication.getName());
 
     }
+
+
 }
