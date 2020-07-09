@@ -21,8 +21,10 @@ public interface LibraryLoanClient {
     @PutMapping(value = "/loan/renew")
     LoanBean renewLoan(@RequestBody LoanBean loan);
 
-    @GetMapping(value = "/loanNotReturnedOnTime")
+    @GetMapping(value = "/batch/loanNotReturnedOnTime")
     List<LoanBean> listLoanNotReturnedOnTime();
+
+
 
     @GetMapping(value = "/loans/{user}")
     List<LoanBean> listLoans(@PathVariable int user);

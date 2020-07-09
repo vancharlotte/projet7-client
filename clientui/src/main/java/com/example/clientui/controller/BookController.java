@@ -30,7 +30,6 @@ public class BookController {
     public String ListBooks(Model model) {
         List<BookBean> books = bookClient.listBooks();
         model.addAttribute("books", books);
-
         return "SearchBooks";
     }
 
