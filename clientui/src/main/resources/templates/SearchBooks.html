@@ -30,7 +30,8 @@
 
     <div class="row justify-content-center mb-3" style="height: 100px">
 
-        <form action="#" th:action="@{/books/search}"  method="get" class="form-inline justify-content-center bg-info col-12 rounded">
+        <form action="#" th:action="@{/books/search}" method="get"
+              class="form-inline justify-content-center bg-info col-12 rounded">
             <div class="form-group mb-2 col-md-6 col-9">
                 <label for="searchBook" class="sr-only"></label>
                 <input type="text" name="word" class="form-control w-100 " id="searchBook"
@@ -56,7 +57,14 @@
                 </tr>
                 </thead>
                 <tbody>
+                <tr th:if="${books.isEmpty()}">
+                         <td style="text-align:left;">
+                             aucun résultat
+                         </td>
+                    <td></td>
+                </tr>
                 <tr th:each="book : ${books}" th:href="@{/books/{bookId}(bookId=${book.id})}">
+
                     <td style="text-align:left;">
                         <a th:href="@{/books/{bookId}(bookId=${book.id})}">
                             <h5 th:text="${book.title}" th:href="@{/books/{bookId}(bookId=${book.id})}"></h5>
@@ -68,7 +76,7 @@
                     </td>
                     <td style="text-align:right;">
                         <a th:href="@{/books/{bookId}(bookId=${book.id})}">
-                            <img  src="images/logo1.png" alt="book" style="max-width:150px;">
+                            <img src="images/logo1.png" alt="book" style="max-width:150px;">
                         </a>
                     </td>
                 </tr>

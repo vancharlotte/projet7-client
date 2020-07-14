@@ -29,7 +29,4 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
         // .and().logout().logoutSuccessUrl("/").permitAll();
     }
 
-
-
-
 }

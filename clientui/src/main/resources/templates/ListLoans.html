@@ -36,6 +36,16 @@
                 </thead>
 
                 <tbody>
+                <tr th:if="${map.isEmpty()}">
+                    <td>                    aucun résultat
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+
+               </tr>
                 <tr th:each="entry  : ${map}">
                     <div th:each="book : ${entry.value}">
                         <td th:text="${book.title}"></td>
@@ -43,7 +53,7 @@
                     <div th:each="loan : ${entry.key}">
                         <td th:text="${#dates.format(loan.startDate, 'dd-MM-yyyy')}"></td>
                         <td th:text="${#dates.format(loan.endDate, 'dd-MM-yyyy')}"></td>
-                        <td >
+                        <td>
                             <a th:if="${loan.returned}"> Oui </a>
                             <a th:unless="${loan.returned}"> Non </a>
                         </td>
