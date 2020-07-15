@@ -60,7 +60,7 @@
                             <a th:if="${loan.renewed}">
                                 <p class="text-secondary">emprunt déjà prolongé</p>
                             </a>
-                            <a th:unless="${loan.renewed}" th:href="@{/loan/renew/{loanId}(loanId=${loan.id})}">
+                            <a th:unless="${loan.renewed or loan.returned}" th:href="@{/loan/renew/{loanId}(loanId=${loan.id})}">
                                 <button type="button" class="btn btn-primary"> Prolongé</button>
                             </a>
                         </td>

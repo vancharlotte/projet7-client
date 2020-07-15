@@ -63,7 +63,7 @@ public class LoanController {
         LoanBean loan =  loanClient.selectLoan(id);
         loanClient.renewLoan(loan);
         logger.info("put loan");
-        return "redirect:/loans/4";
+        return "redirect:/loans";
 
     }
 
