@@ -5,6 +5,7 @@ import com.example.clientui.beans.CopyBean;
 import feign.Headers;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -17,21 +18,27 @@ import java.util.List;
 public interface LibraryBookClient {
 
     @GetMapping(value = "/books")
+    @PreAuthorize("hasAuthority('USER')")
     List<BookBean> listBooks();
 
     @GetMapping(value = "/books/{id}")
+    @PreAuthorize("hasAuthority('USER')")
     BookBean displayBook(@PathVariable int id);
 
     @GetMapping(value = "/copies/{book}")
+    @PreAuthorize("hasAuthority('USER')")
     List<CopyBean> listCopies(@PathVariable int book);
 
     @GetMapping(value = "/copy/{id}")
+    @PreAuthorize("hasAuthority('USER')")
     CopyBean selectCopy(@PathVariable int id);
 
    /* @GetMapping(value="/library-book/books/search/{word}")
+       @PreAuthorize("hasAuthority('USER')")
     List<BookBean> searchBooks(@PathVariable("word") String word);*/
 
     @GetMapping(value = "/books/search")
+    @PreAuthorize("hasAuthority('USER')")
     List<BookBean> getBooks(@RequestParam(value = "title", required = false, defaultValue = "") String title);
 
 }

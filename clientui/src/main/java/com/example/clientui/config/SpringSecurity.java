@@ -2,6 +2,7 @@ package com.example.clientui.config;
 
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -10,6 +11,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableOAuth2Sso
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
@@ -18,15 +21,16 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest()
                 .authenticated()
+                //.and()
+                //  .exceptionHandling().accessDeniedPage("/accessDenied.html")
                 .and()
                 .logout()    //logout configuration
-                .logoutRequestMatcher(new AntPathRequestMatcher ("/logout"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/")
                 .deleteCookies("UISESSION", "JSESSIONID")
                 .clearAuthentication(true)
                 .invalidateHttpSession(true);
 
-        // .and().logout().logoutSuccessUrl("/").permitAll();
     }
 
 }
