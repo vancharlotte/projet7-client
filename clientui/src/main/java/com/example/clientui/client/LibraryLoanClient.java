@@ -25,11 +25,6 @@ public interface LibraryLoanClient {
     @PreAuthorize("hasAuthority('USER')")
     LoanBean renewLoan(@RequestBody LoanBean loan);
 
-    @GetMapping(value = "/batch/loanNotReturnedOnTime")
-    @PreAuthorize("hasAuthority('USER')")
-    List<LoanBean> listLoanNotReturnedOnTime();
-
-
     @GetMapping(value = "/loans/{user}")
     @PreAuthorize("hasAuthority('USER')")
     List<LoanBean> listLoans(@PathVariable int user);
