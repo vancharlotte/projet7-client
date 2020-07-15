@@ -21,8 +21,6 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest()
                 .authenticated()
-                //.and()
-                //  .exceptionHandling().accessDeniedPage("/accessDenied.html")
                 .and()
                 .logout()    //logout configuration
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

@@ -11,11 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface LibraryAccountClient {
 
     @GetMapping(value = "/account/{id}")
-  //  @PreAuthorize("hasAuthority('USER')")
     AccountBean selectAccount(@PathVariable int id);
 
     @GetMapping(value = "/principal/{username}")
-    //@PreAuthorize("hasAuthority('USER')")
     AccountBean findUsername(@PathVariable String username);
 
 
