@@ -2,10 +2,10 @@ package com.example.clientui.client;
 
 import com.example.clientui.beans.BookBean;
 import com.example.clientui.beans.CopyBean;
-import feign.Headers;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -33,12 +33,19 @@ public interface LibraryBookClient {
     @PreAuthorize("hasAuthority('USER')")
     CopyBean selectCopy(@PathVariable int id);
 
-   /* @GetMapping(value="/library-book/books/search/{word}")
-       @PreAuthorize("hasAuthority('USER')")
-    List<BookBean> searchBooks(@PathVariable("word") String word);*/
 
-    @GetMapping(value = "/books/search")
+    @GetMapping(value = "/books/search/page/{pageNo}")
     @PreAuthorize("hasAuthority('USER')")
-    List<BookBean> getBooks(@RequestParam(value = "title", required = false, defaultValue = "") String title);
+    List<BookBean> getBooks(@PathVariable(value = "pageNo") int pageNo,
+                            @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize,
+                            @RequestParam(value = "word", required = false, defaultValue = "") String word);
 
+    @GetMapping("/books/page/{pageNo}")
+    @PreAuthorize("hasAuthority('USER')")
+    List<BookBean> findBooksPaginated(@PathVariable(value = "pageNo") int pageNo,
+                                      @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize);
+
+    @GetMapping("/books/search")
+    @PreAuthorize("hasAuthority('USER')")
+    List<BookBean> searchBooks(@RequestParam(value = "word", required = false, defaultValue = "") String word);
 }

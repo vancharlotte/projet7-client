@@ -6,7 +6,7 @@
     <style>
 
         .container1 a:link, a:visited {
-            text-decoration: none;
+            font-weight:  normal;
             border-radius: 5px;
             float: none;
             color: black;
@@ -15,6 +15,8 @@
         .container1 a:hover, a:active {
             color: royalblue;
         }
+
+
 
         .table {
             width: 100%;
@@ -26,11 +28,11 @@
 </head>
 
 <body>
-<div class="container1 bg-light col-12 mb-3 rounded">
+<div class="container1 bg-light col-12 mb-3 pb-3 rounded">
 
     <div class="row justify-content-center mb-3" style="height: 100px">
 
-        <form action="#" th:action="@{/books/search}" method="get"
+        <form action="#" th:action="@{/books/page/1}" method="get"
               class="form-inline justify-content-center bg-info col-12 rounded">
             <div class="form-group mb-2 col-md-6 col-9">
                 <label for="searchBook" class="sr-only"></label>
@@ -58,9 +60,9 @@
                 </thead>
                 <tbody>
                 <tr th:if="${books.isEmpty()}">
-                         <td style="text-align:left;">
-                             aucun résultat
-                         </td>
+                    <td style="text-align:left;">
+                        aucun résultat
+                    </td>
                     <td></td>
                 </tr>
                 <tr th:each="book : ${books}" th:href="@{/books/{bookId}(bookId=${book.id})}">
@@ -76,7 +78,7 @@
                     </td>
                     <td style="text-align:right;">
                         <a th:href="@{/books/{bookId}(bookId=${book.id})}">
-                            <img src="../images/logo1.png" alt="book" style="max-width:150px;">
+                            <img src="/images/logo1.png" alt="book" style="max-width:150px;">
                         </a>
                     </td>
                 </tr>
@@ -84,6 +86,27 @@
             </table>
         </div>
 
+    </div>
+
+
+    <div th:if="${totalPages > 1}" class="row justify-content-center">
+
+        <div>
+            <a th:if="${currentPage < totalPages}" th:href="@{'/books/page/' + ${currentPage + 1}+ '?word='+${word}}">Next</a>
+            <span th:unless="${currentPage < totalPages}">Next</span>
+            &nbsp;
+        </div>
+        <div>
+					<span style="font-weight: bold" th:each="i: ${#numbers.sequence(1, totalPages)}">
+						<a th:if="${currentPage != i}" th:href="@{'/books/page/' + ${i} + '?word='+${word}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp;
+					</span>
+        </div>
+
+        <div>
+            <a th:if="${currentPage < totalPages}" th:href="@{'/books/page/' + ${totalPages} + '?word='+${word}}">Last</a>
+            <span th:unless="${currentPage < totalPages}">Last</span>
+        </div>
     </div>
 
 </div>

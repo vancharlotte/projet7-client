@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,12 +27,34 @@ public class BookController {
     @Autowired
     private LibraryLoanClient loanClient;
 
-    @GetMapping("/books")
-    public String ListBooks(Model model) {
-        List<BookBean> books = bookClient.listBooks();
+
+    @GetMapping("/books/page/{currentPage}")
+    public String searchBooks(@PathVariable int currentPage,
+                              @RequestParam(name = "word", defaultValue = "") String word, Model model){
+        int pageSize = 5;
+        int totalPages;
+        List<BookBean> books;
+
+        if(word.equals("")){
+            List<BookBean> allBooks = bookClient.listBooks();
+            totalPages = (allBooks.size()/pageSize)+ (allBooks.size() % pageSize == 0 ? 0 : 1);
+            books = bookClient.findBooksPaginated(currentPage, pageSize);
+
+        }
+        else{
+            List<BookBean> allBooks = bookClient.searchBooks(word);
+            totalPages = (allBooks.size()/pageSize)+ (allBooks.size() % pageSize == 0 ? 0 : 1);
+            books = bookClient.getBooks(currentPage, pageSize, word);
+
+        }
         model.addAttribute("books", books);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("word", word);
+
         return "SearchBooks";
     }
+
 
     @GetMapping("/books/{id}")
     public String selectBook(@PathVariable int id, Model model) {
@@ -51,14 +74,5 @@ public class BookController {
 
         return "Book";
     }
-
-    @GetMapping("/books/search")
-    public String searchBooks(@RequestParam(name = "word", defaultValue = "") String word, Model model){
-        List<BookBean> books = bookClient.getBooks(word);
-        model.addAttribute("books", books);
-        return "SearchBooks";
-
-    }
-
 
 }
