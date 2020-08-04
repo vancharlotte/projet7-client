@@ -14,24 +14,24 @@ import java.util.List;
 public interface LibraryLoanClient {
 
     @GetMapping(value="/loan/{id}")
-    @PreAuthorize("hasAuthority('USER')")
+   // @PreAuthorize("hasAuthority('USER')")
     LoanBean selectLoan(@PathVariable int id);
 
     @PostMapping(value = "/loan")
-    @PreAuthorize("hasAuthority('USER')")
+  //  @PreAuthorize("hasAuthority('USER')")
     ResponseEntity<Void> addLoan(@RequestBody LoanBean loan);
 
     @PutMapping(value = "/loan/renew")
-    @PreAuthorize("hasAuthority('USER')")
+  //  @PreAuthorize("hasAuthority('USER')")
     LoanBean renewLoan(@RequestBody LoanBean loan);
 
     @GetMapping(value = "/loans/{user}")
-    @PreAuthorize("hasAuthority('USER')")
+   // @PreAuthorize("hasAuthority('USER')")
     List<LoanBean> listLoans(@PathVariable int user);
 
 
-    @GetMapping(value = "/books/{copy}")
-    @PreAuthorize("hasAuthority('USER')")
+    @GetMapping(value = "/books/copyAvailable{copy}")
+   // @PreAuthorize("hasAuthority('USER')")
     boolean copyAvailable(@PathVariable int copy);
 
 }

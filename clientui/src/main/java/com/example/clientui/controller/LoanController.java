@@ -1,12 +1,10 @@
 package com.example.clientui.controller;
 
-import com.example.clientui.beans.AccountBean;
-import com.example.clientui.beans.BookBean;
-import com.example.clientui.beans.CopyBean;
-import com.example.clientui.beans.LoanBean;
+import com.example.clientui.beans.*;
 import com.example.clientui.client.LibraryAccountClient;
 import com.example.clientui.client.LibraryBookClient;
 import com.example.clientui.client.LibraryLoanClient;
+import com.example.clientui.client.LibraryUserClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +31,11 @@ public class LoanController {
     @Autowired
     private LibraryBookClient bookClient;
 
+//    @Autowired
+  //  private LibraryAccountClient accountClient;
+
     @Autowired
-    private LibraryAccountClient accountClientClient;
+    private LibraryUserClient userClient;
 
 
     @GetMapping("/loans")
@@ -43,7 +44,9 @@ public class LoanController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = (String) authentication.getPrincipal();
 
-        AccountBean user = accountClientClient.findUsername(username);
+        //AccountBean user = accountClient.findUsername(username);
+        UserBean user = userClient.findUsername(username);
+
 
         List<LoanBean> loans = loanClient.listLoans(user.getId());
         LinkedHashMap<LoanBean, BookBean> map = new LinkedHashMap<>();

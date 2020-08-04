@@ -17,7 +17,13 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/**")
+
+        http
+
+                .csrf().disable()
+                .cors()
+                .and()
+                .antMatcher("/**")
                 .authorizeRequests()
                 .anyRequest()
                 .authenticated()
@@ -27,7 +33,12 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 .deleteCookies("UISESSION", "JSESSIONID")
                 .clearAuthentication(true)
-                .invalidateHttpSession(true);
+                .invalidateHttpSession(true)
+                .and()
+                .headers().httpStrictTransportSecurity()
+                .maxAgeInSeconds(0)
+                .includeSubDomains(true);
+
 
     }
 

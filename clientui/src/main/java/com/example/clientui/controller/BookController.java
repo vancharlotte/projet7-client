@@ -64,13 +64,14 @@ public class BookController {
         List <CopyBean> copies = bookClient.listCopies(book.getId());
         List <CopyBean> copiesAvailable = new ArrayList<>();
 
-        for (int i = 0; i < copies.size(); i++) {
+       for (int i = 0; i < copies.size(); i++) {
             boolean copyAvailable = loanClient.copyAvailable(copies.get(i).getId());
-            if (copyAvailable){                copiesAvailable.add(copies.get(i));            }
+            if (copyAvailable){
+                copiesAvailable.add(copies.get(i));            }
         }
 
         model.addAttribute("nbCopy", copies.size());
-        model.addAttribute("nbCopyAvailable", copiesAvailable.size());
+        model.addAttribute("nbCopyAvailable", 0);
 
         return "Book";
     }
