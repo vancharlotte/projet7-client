@@ -71,7 +71,7 @@ public class BookController {
         }
 
         model.addAttribute("nbCopy", copies.size());
-        model.addAttribute("nbCopyAvailable", 0);
+        model.addAttribute("nbCopyAvailable", copiesAvailable.size());
 
         return "Book";
     }

@@ -31,8 +31,8 @@ public class LoanController {
     @Autowired
     private LibraryBookClient bookClient;
 
-//    @Autowired
-  //  private LibraryAccountClient accountClient;
+    @Autowired
+    private LibraryAccountClient accountClient;
 
     @Autowired
     private LibraryUserClient userClient;
@@ -44,8 +44,8 @@ public class LoanController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = (String) authentication.getPrincipal();
 
-        //AccountBean user = accountClient.findUsername(username);
-        UserBean user = userClient.findUsername(username);
+        AccountBean user = accountClient.findUsername(username);
+        //UserBean user = userClient.findUsername(username);
 
 
         List<LoanBean> loans = loanClient.listLoans(user.getId());

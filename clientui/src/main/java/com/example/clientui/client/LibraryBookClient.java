@@ -4,47 +4,39 @@ import com.example.clientui.beans.BookBean;
 import com.example.clientui.beans.CopyBean;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-//@FeignClient(name = "zuul-server")
-@FeignClient(name = "library-book", url = "http://localhost:9001/")
-//@RibbonClient(name = "library-book")
+//@FeignClient(name = "library-book")
+@FeignClient(name = "zuul-server")
+@RibbonClient(name = "library-book")
 public interface LibraryBookClient {
 
-    @GetMapping(value = "/books")
-   // @PreAuthorize("hasAuthority('USER')")
+    @GetMapping(value = "/library-book/books")
     List<BookBean> listBooks();
 
-    @GetMapping(value = "/books/select/{id}")
- //   @PreAuthorize("hasAuthority('USER')")
+    @GetMapping(value = "/library-book/books/select/{id}")
     BookBean displayBook(@PathVariable int id);
 
-    @GetMapping(value = "/copies/{book}")
-   // @PreAuthorize("hasAuthority('USER')")
+    @GetMapping(value = "/library-book/copies/{book}")
     List<CopyBean> listCopies(@PathVariable int book);
 
-    @GetMapping(value = "/copy/{id}")
-   // @PreAuthorize("hasAuthority('USER')")
+    @GetMapping(value = "/library-book/copy/{id}")
     CopyBean selectCopy(@PathVariable int id);
 
 
-    @GetMapping(value = "/books/search/page/{pageNo}")
-   // @PreAuthorize("hasAuthority('USER')")
+    @GetMapping(value = "/library-book/books/search/page/{pageNo}")
     List<BookBean> getBooks(@PathVariable(value = "pageNo") int pageNo,
                             @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize,
                             @RequestParam(value = "word", required = false, defaultValue = "") String word);
 
-    @GetMapping("/books/page/{pageNo}")
-   // @PreAuthorize("hasAuthority('USER')")
+    @GetMapping("/library-book/books/page/{pageNo}")
     List<BookBean> findBooksPaginated(@PathVariable(value = "pageNo") int pageNo,
                                       @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize);
 
-    @GetMapping("/books/search")
-   // @PreAuthorize("hasAuthority('USER')")
+    @GetMapping("/library-book/books/search")
     List<BookBean> searchBooks(@RequestParam(value = "word", required = false, defaultValue = "") String word);
 }

@@ -4,34 +4,28 @@ import com.example.clientui.beans.LoanBean;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "library-loan", url = "http://localhost:9002/")
-//@RibbonClient(name = "library-loan")
+//@FeignClient(name = "library-loan")
+@FeignClient(name = "zuul-server")
+@RibbonClient(name = "library-loan")
 public interface LibraryLoanClient {
 
-    @GetMapping(value="/loan/{id}")
-   // @PreAuthorize("hasAuthority('USER')")
+    @GetMapping(value="/library-loan/loan/{id}")
     LoanBean selectLoan(@PathVariable int id);
 
-    @PostMapping(value = "/loan")
-  //  @PreAuthorize("hasAuthority('USER')")
+    @PostMapping(value = "/library-loan/loan")
     ResponseEntity<Void> addLoan(@RequestBody LoanBean loan);
 
-    @PutMapping(value = "/loan/renew")
-  //  @PreAuthorize("hasAuthority('USER')")
+    @PutMapping(value = "/library-loan/loan/renew")
     LoanBean renewLoan(@RequestBody LoanBean loan);
 
-    @GetMapping(value = "/loans/{user}")
-   // @PreAuthorize("hasAuthority('USER')")
+    @GetMapping(value = "/library-loan/loans/{user}")
     List<LoanBean> listLoans(@PathVariable int user);
 
-
-    @GetMapping(value = "/books/copyAvailable{copy}")
-   // @PreAuthorize("hasAuthority('USER')")
+    @GetMapping(value = "/library-loan/loans/copyAvailable{copy}")
     boolean copyAvailable(@PathVariable int copy);
 
 }
