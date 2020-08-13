@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-//@FeignClient(name = "library-book")
 @FeignClient(name = "zuul-server")
 @RibbonClient(name = "library-book")
 public interface LibraryBookClient {
@@ -30,13 +29,15 @@ public interface LibraryBookClient {
 
     @GetMapping(value = "/library-book/books/search/page/{pageNo}")
     List<BookBean> getBooks(@PathVariable(value = "pageNo") int pageNo,
-                            @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize,
+                            @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,
                             @RequestParam(value = "word", required = false, defaultValue = "") String word);
 
     @GetMapping("/library-book/books/page/{pageNo}")
     List<BookBean> findBooksPaginated(@PathVariable(value = "pageNo") int pageNo,
-                                      @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize);
+                                      @RequestParam(value = "pageSize", defaultValue = "5") int pageSize);
 
     @GetMapping("/library-book/books/search")
     List<BookBean> searchBooks(@RequestParam(value = "word", required = false, defaultValue = "") String word);
+
 }
+

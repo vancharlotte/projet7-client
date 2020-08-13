@@ -1,5 +1,7 @@
 package com.example.clientui.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class ErrorControllerImpl implements ErrorController {
+
+    private Logger logger = LoggerFactory.getLogger(ErrorControllerImpl.class);
+
 
     @GetMapping("/error")
     public ModelAndView handleError(HttpServletResponse response) {

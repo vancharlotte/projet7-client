@@ -4,19 +4,15 @@ import com.example.clientui.beans.*;
 import com.example.clientui.client.LibraryAccountClient;
 import com.example.clientui.client.LibraryBookClient;
 import com.example.clientui.client.LibraryLoanClient;
-import com.example.clientui.client.LibraryUserClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -34,10 +30,6 @@ public class LoanController {
     @Autowired
     private LibraryAccountClient accountClient;
 
-    @Autowired
-    private LibraryUserClient userClient;
-
-
     @GetMapping("/loans")
     public String ListLoans(Model model) {
 
@@ -45,8 +37,6 @@ public class LoanController {
         String username = (String) authentication.getPrincipal();
 
         AccountBean user = accountClient.findUsername(username);
-        //UserBean user = userClient.findUsername(username);
-
 
         List<LoanBean> loans = loanClient.listLoans(user.getId());
         LinkedHashMap<LoanBean, BookBean> map = new LinkedHashMap<>();

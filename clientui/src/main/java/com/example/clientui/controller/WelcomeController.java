@@ -11,15 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class WelcomeController {
 
-    @Autowired
-    private LibraryAccountClient userClient;
 
     @GetMapping("/")
     public String accueil(Model model) {
-    /*    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = (String) authentication.getPrincipal();
-        model.addAttribute("username", username);*/
-
         return "Homepage";
     }
 
