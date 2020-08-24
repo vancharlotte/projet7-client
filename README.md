@@ -27,10 +27,10 @@ Cette application a été développé avec :
 ##### 1 - Importez tous les microservices du repository "projet7-biblio" et du repository "projet7-client".
 
 ##### 2 - Créez les 3 bases de données et un utilisateur : 
-- dbauth pour le microservice auth-server
-- dbbook pour le microservice library-book
-- dbloan pour le microservice library-loan
-- user : 
+* dbauth pour le microservice auth-server
+* dbbook pour le microservice library-book
+* dbloan pour le microservice library-loan
+* user : 
     *   username : admin
     *   mot de passe : admin123!
 
@@ -51,8 +51,8 @@ spring.datasource.url=jdbc:mysql://localhost:3306/dbbook?createDatabaseIfNotExis
 
 Dans votre navigateur, vous pouvez accéder au site web à l'adresse http://localhost:8000/.   
 comptes présents dans la bdd pour tester : 
-    * username : admin, mdp : 123 
-    * username : user, mdp : 123 
+* username : admin, mdp : 123 
+* username : user, mdp : 123 
 
 Vous pouvez modifier le port d'un module dans le fichier src/main/resources/application.properties du module concerné.   
 Les ports ont été pré-défini pour chaque microservice : 
