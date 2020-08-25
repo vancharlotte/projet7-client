@@ -50,10 +50,13 @@ spring.datasource.url=jdbc:mysql://localhost:3306/dbbook?createDatabaseIfNotExis
 ##### 3 - Lancez l'application : démarrez "library-eureka" en premier et "library-batch" et "library-client" en dernier.
 
 Dans votre navigateur, vous pouvez accéder au site web à l'adresse http://localhost:8000/. 
+comptes présents dans la bdd pour tester : 
+    * username : admin, mdp : 123 
+    * username : user, mdp : 123 
 
 Vous pouvez modifier le port d'un module dans le fichier src/main/resources/application.properties du module concerné.   
 Les ports ont été pré-défini pour chaque microservice : 
-- eureka : port 8761
+- eureka-server : port 8761
 - auth-server : port 9191
 - library-book : port 9001
 - library-loan : port 9002
